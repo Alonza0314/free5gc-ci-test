@@ -1,9 +1,9 @@
 gnodeb:
   controlif:
-    ip: "ci.free5gc.org"
+    ip: "10.100.200.100"
     port: 9487
   dataif:
-    ip: "ci.free5gc.org"
+    ip: "10.100.200.100"
     port: 2152
   plmnlist:
     mcc: "208"
@@ -39,7 +39,7 @@ ue:
     nea2: true
     nea3: false
 amfif:
-  ip: "amf.free5gc.org"
-  port: 38412
+  - ip: "10.100.200.18"
+    port: 38412
 logs:
   level: 4

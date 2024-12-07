@@ -10,15 +10,13 @@ pfcp:
 
 gtpu:
   forwarder: gtp5g
-  # The IP list of the N3/N6/N9 interfaces on this UPF
+  # The IP list of the N3/N9 interfaces on this UPF
   # If there are multiple connection, set addr to 0.0.0.0 or list all the addresses
   ifList:
     - addr: i-upf.free5gc.org
-      type: N3 # gNB
+      type: N3
     - addr: i-upf.free5gc.org
-      type: N9 # psa-upf
-    - addr: i-upf.free5gc.org
-      type: N6 # mec
+      type: N9
 
 # The DNN list supported by UPF
 dnnList:

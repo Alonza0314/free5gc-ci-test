@@ -28,6 +28,9 @@ services:
       privnet:
         aliases:
           - i-upf.free5gc.org
+      mec-net:
+        aliases:
+          - i-upf.mec.org
 
   free5gc-psa-upf: # psa-upf
     container_name: psa-upf
@@ -45,6 +48,9 @@ services:
       privnet:
         aliases:
           - psa-upf.free5gc.org
+      n6-net:
+        aliases:
+          - psa-upf.n6.org
 
   free5gc-n6gw: # n6gw
     container_name: n6gw
@@ -61,6 +67,9 @@ services:
       privnet:
         aliases:
           - n6gw.free5gc.org
+      n6-net:
+        aliases:
+          - n6gw.local
 
   free5gc-mec: # mec
     container_name: mec
@@ -77,6 +86,9 @@ services:
       privnet:
         aliases:
           - mec.free5gc.org
+      mec-net:
+        aliases:
+          - mec.local
 
   free5gc-nrf: # nrf
     container_name: nrf
@@ -88,7 +100,7 @@ services:
     expose:
       - "8000"
     volumes:
-      - ./config/nrfcfg.yaml:/free5gc/config/nrfcfg.yaml
+      - ./config/nrfCfg.yaml:/free5gc/config/nrfcfg.yaml
       - ./cert:/free5gc/cert
     environment:
       DB_URI: mongodb://db/free5gc
@@ -110,7 +122,7 @@ services:
     expose:
       - "8000"
     volumes:
-      - ./config/amfcfg.yaml:/free5gc/config/amfcfg.yaml
+      - ./config/amfCfg.yaml:/free5gc/config/amfcfg.yaml
       - ./cert:/free5gc/cert
     environment:
       GIN_MODE: release
@@ -118,6 +130,7 @@ services:
       privnet:
         aliases:
           - amf.free5gc.org
+        ipv4_address: 10.100.200.18
     depends_on:
       - free5gc-nrf
 
@@ -131,7 +144,7 @@ services:
     expose:
       - "8000"
     volumes:
-      - ./config/ausfcfg.yaml:/free5gc/config/ausfcfg.yaml
+      - ./config/ausfCfg.yaml:/free5gc/config/ausfcfg.yaml
       - ./cert:/free5gc/cert
     environment:
       GIN_MODE: release
@@ -152,7 +165,7 @@ services:
     expose:
       - "8000"
     volumes:
-      - ./config/nssfcfg.yaml:/free5gc/config/nssfcfg.yaml
+      - ./config/nssfCfg.yaml:/free5gc/config/nssfcfg.yaml
       - ./cert:/free5gc/cert
     environment:
       GIN_MODE: release
@@ -173,7 +186,7 @@ services:
     expose:
       - "8000"
     volumes:
-      - ./config/pcfcfg.yaml:/free5gc/config/pcfcfg.yaml
+      - ./config/pcfCfg.yaml:/free5gc/config/pcfcfg.yaml
       - ./cert:/free5gc/cert
     environment:
       GIN_MODE: release
@@ -194,8 +207,8 @@ services:
     expose:
       - "8000"
     volumes:
-      - ./config/ULCL/smfcfg.yaml:/free5gc/config/smfcfg.yaml
-      - ./config/ULCL/uerouting.yaml:/free5gc/config/uerouting.yaml
+      - ./config/ULCL/smfCfg.yaml:/free5gc/config/smfcfg.yaml
+      - ./config/ULCL/ueRoutingCfg.yaml:/free5gc/config/uerouting.yaml
       - ./cert:/free5gc/cert
     environment:
       GIN_MODE: release
@@ -218,7 +231,7 @@ services:
     expose:
       - "8000"
     volumes:
-      - ./config/udmcfg.yaml:/free5gc/config/udmcfg.yaml
+      - ./config/udmCfg.yaml:/free5gc/config/udmcfg.yaml
       - ./cert:/free5gc/cert
     environment:
       GIN_MODE: release
@@ -240,7 +253,7 @@ services:
     expose:
       - "8000"
     volumes:
-      - ./config/udrcfg.yaml:/free5gc/config/udrcfg.yaml
+      - ./config/udrCfg.yaml:/free5gc/config/udrcfg.yaml
       - ./cert:/free5gc/cert
     environment:
       DB_URI: mongodb://db/free5gc
@@ -263,7 +276,7 @@ services:
     expose:
       - "8000"
     volumes:
-      - ./config/chfcfg.yaml:/free5gc/config/chfcfg.yaml
+      - ./config/chfCfg.yaml:/free5gc/config/chfcfg.yaml
       - ./cert:/free5gc/cert
     environment:
       DB_URI: mongodb://db/free5gc
@@ -287,7 +300,7 @@ services:
     expose:
       - "8000"
     volumes:
-      - ./config/nefcfg.yaml:/free5gc/config/nefcfg.yaml
+      - ./config/nefCfg.yaml:/free5gc/config/nefcfg.yaml
       - ./cert:/free5gc/cert
     environment:
       GIN_MODE: release
@@ -309,7 +322,7 @@ services:
     expose:
       - "2121"
     volumes:
-      - ./config/webuicfg.yaml:/free5gc/config/webuicfg.yaml
+      - ./config/webuiCfg.yaml:/free5gc/config/webuicfg.yaml
       - ./cert:/free5gc/cert
     environment:
       - GIN_MODE=release
@@ -327,9 +340,13 @@ services:
 
   ci-test: # packet rusher
     container_name: ci
-    image: free5gc/ci:latest
+    build:
+      context: ./ci
+      args:
+        DEBUG_TOOLS: "false"
+    command: tail -f /dev/null
     volumes:
-      - ./config/ci.yaml:/ci/config/ci.yaml
+      - ./config/ci.yaml:/root/PacketRusher/config/config.yml
     cap_add:
       - NET_ADMIN
     devices:
@@ -338,6 +355,7 @@ services:
       privnet:
         aliases:
           - ci.free5gc.org
+        ipv4_address: 10.100.200.100
     depends_on:
       - free5gc-amf
       - free5gc-i-upf
@@ -351,6 +369,22 @@ networks:
         - subnet: 10.100.200.0/24
     driver_opts:
       com.docker.network.bridge.name: br-free5gc
+  
+  mec-net:
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.100.100.0/24
+    driver_opts:
+      com.docker.network.bridge.name: br-mec
+
+  n6-net:
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.100.50.0/24
+    driver_opts:
+      com.docker.network.bridge.name: br-n6
 
 volumes:
   dbdata:

@@ -4,6 +4,7 @@ DOCKER_IMAGE_TAG = 'latest'
 
 .PHONY: base
 all: base amf ausf nrf nssf pcf smf udm udr n3iwf upf chf tngf nef webconsole
+ulcl: base upf nrf amf ausf nssf pcf smf udm udr chf nef webconsole
 
 base:
 	docker build -t ${DOCKER_IMAGE_OWNER}/${DOCKER_IMAGE_NAME}:${DOCKER_IMAGE_TAG} ./base

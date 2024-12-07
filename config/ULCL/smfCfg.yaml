@@ -39,9 +39,9 @@ configuration:
     heartbeatInterval: 5s
   userplaneInformation: # list of userplane information
     upNodes: # information of userplane node (AN or UPF)
-      gNB: # the name of the node
+      gNB1: # the name of the node
         type: AN # the type of the node (AN or UPF)
-        nodeID: ci.free5gc.org # the Node ID of this gNB
+        nodeID: gnb.free5gc.org # the Node ID of this gNB
       I-UPF: # the name of the node
         type: UPF # the type of the node (AN or UPF)
         nodeID: i-upf.free5gc.org # the Node ID of this UPF
@@ -54,18 +54,13 @@ configuration:
                 dnaiList:
                   - mec
         interfaces: # Interface list for this UPF
-          - interfaceType: N3 # the type of the interface (N3 or N6 or N9)
-            endpoints: # the IP address of this N3 interface on this UPF
+          - interfaceType: N3 # the type of the interface (N3 or N9)
+            endpoints: # the IP address of this N3/N9 interface on this UPF
               - i-upf.free5gc.org
             networkInstances: # Data Network Name (DNN)
               - internet
-          - interfaceType: N9 # the type of the interface (N3 or N6 or N9)
-            endpoints: # the IP address of this N9 interface on this UPF
-              - i-upf.free5gc.org
-            networkInstances: # Data Network Name (DNN)
-              - internet
-          - interfaceType: N6 # the type of the interface (N3 or N6 or N9)
-            endpoints: # the IP address of this N6 interface on this UPF
+          - interfaceType: N9 # the type of the interface (N3 or N9)
+            endpoints: # the IP address of this N3/N9 interface on this UPF
               - i-upf.free5gc.org
             networkInstances: # Data Network Name (DNN)
               - internet
@@ -81,13 +76,8 @@ configuration:
                 pools:
                   - cidr: 10.60.0.0/16
         interfaces: # Interface list for this UPF
-          - interfaceType: N9 # the type of the interface (N3 or N6 or N9)
-            endpoints: # the IP address of this N9 interface on this UPF
-              - psa-upf.free5gc.org
-            networkInstances: # Data Network Name (DNN)
-              - internet
-          - interfaceType: N6 # the type of the interface (N3 or N6 or N9)
-            endpoints: # the IP address of this N6 interface on this UPF
+          - interfaceType: N9 # the type of the interface (N3 or N9)
+            endpoints: # the IP address of this N3/N9 interface on this UPF
               - psa-upf.free5gc.org
             networkInstances: # Data Network Name (DNN)
               - internet
