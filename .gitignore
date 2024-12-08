@@ -31,5 +31,5 @@ go.work.sum
 note.md
 
 # cert
-cert/*_*.pem
+cert/*.pem
 

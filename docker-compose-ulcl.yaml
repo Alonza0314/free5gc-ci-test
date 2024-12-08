@@ -70,6 +70,7 @@ services:
       n6-net:
         aliases:
           - n6gw.local
+        ipv4_address: 10.100.50.10
 
   free5gc-mec: # mec
     container_name: mec
@@ -89,6 +90,7 @@ services:
       mec-net:
         aliases:
           - mec.local
+        ipv4_address: 10.100.100.10
 
   free5gc-nrf: # nrf
     container_name: nrf
@@ -347,6 +349,7 @@ services:
     command: tail -f /dev/null
     volumes:
       - ./config/ci.yaml:/root/PacketRusher/config/config.yml
+      - ./test/goTest:/root/test
     cap_add:
       - NET_ADMIN
     devices:
