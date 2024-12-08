@@ -29,3 +29,7 @@ go.work.sum
 
 # note
 note.md
+
+# cert
+cert/*_*.pem
+
