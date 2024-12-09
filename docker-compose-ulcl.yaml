@@ -349,7 +349,7 @@ services:
     command: tail -f /dev/null
     volumes:
       - ./config/ci.yaml:/root/PacketRusher/config/config.yml
-      - ./test/goTest:/root/test
+      - ./test:/root/test
     cap_add:
       - NET_ADMIN
     devices:
