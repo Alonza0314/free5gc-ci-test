@@ -18,4 +18,11 @@ if [[ ! "$1" =~ ^($TEST_POOL)$ ]]; then
     exit 1
 fi
 
-docker exec -it ci /bin/bash -c "cd test && ./test-ulcl.sh $1"
+# run test
+echo "Running test... $1"
+
+docker exec ci /bin/bash -c "cd test && ./test-ulcl.sh $1"
+exit_code=$?
+
+echo "Test completed with exit code: $exit_code"
+exit $exit_code
