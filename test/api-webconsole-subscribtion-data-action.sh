@@ -3,8 +3,9 @@
 ##########################
 #
 # usage:
-# ./webconsole-api-subscribtion-data-action.sh post
-# ./webconsole-api-subscribtion-data-action.sh delete
+# ./api-webconsole-subscribtion-data-action.sh <action>
+#
+# e.g. ./api-webconsole-subscribtion-data-action.sh [post|delete]
 #
 ##########################
 

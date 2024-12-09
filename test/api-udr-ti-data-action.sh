@@ -3,9 +3,9 @@
 ##########################
 #
 # usage:
-# ./ci-test-ti-data-insert.sh put
-# ./ci-test-ti-data-insert.sh get
-# ./ci-test-ti-data-insert.sh delete
+# ./api-udr-ti-data-action.sh <action>
+#
+# e.g. ./api-udr-ti-data-action.sh [put|get|delete]
 #
 ##########################
 

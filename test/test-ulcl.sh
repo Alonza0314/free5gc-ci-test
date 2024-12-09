@@ -1,5 +1,14 @@
 #!/bin/bash
 
+##########################
+#
+# usage:
+# ./test-ulcl.sh <test-name>
+#
+# e.g. ./test-ulcl.sh TestULCLTrafficInfluence
+#
+##########################
+
 # post ue (ci-test PacketRusher) data to db
 ./api-webconsole-subscribtion-data-action.sh post
 
