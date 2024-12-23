@@ -1,6 +1,6 @@
 services:
   db: # mongodb
-    container_name: mongodb
+    container_name: ci-mongodb
     image: mongo:7.0.15
     command: mongod --port 27017 --quiet
     expose:
