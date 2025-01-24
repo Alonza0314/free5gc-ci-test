@@ -33,14 +33,8 @@
                     "sst": 1,
                     "sd": "010203",
                     "isDefault": true
-                },
-                {
-                    "sst": 1,
-                    "sd": "112233",
-                    "isDefault": false
                 }
-            ],
-            "singleNssais": []
+            ]
         },
         "subscribedUeAmbr": {
             "downlink": "2 Gbps",
@@ -81,52 +75,11 @@
                     }
                 }
             }
-        },
-        {
-            "singleNssai": {
-                "sst": 1,
-                "sd": "112233"
-            },
-            "dnnConfigurations": {
-                "internet": {
-                    "sscModes": {
-                        "defaultSscMode": "SSC_MODE_1",
-                        "allowedSscModes": [
-                            "SSC_MODE_2",
-                            "SSC_MODE_3"
-                        ]
-                    },
-                    "pduSessionTypes": {
-                        "defaultSessionType": "IPV4",
-                        "allowedSessionTypes": [
-                            "IPV4"
-                        ]
-                    },
-                    "sessionAmbr": {
-                        "uplink": "200 Mbps",
-                        "downlink": "100 Mbps"
-                    },
-                    "5gQosProfile": {
-                        "5qi": 8,
-                        "arp": {
-                            "priorityLevel": 8
-                        },
-                        "priorityLevel": 8
-                    }
-                }
-            }
         }
     ],
     "SmfSelectionSubscriptionData": {
         "subscribedSnssaiInfos": {
             "01010203": {
-                "dnnInfos": [
-                    {
-                        "dnn": "internet"
-                    }
-                ]
-            },
-            "01112233": {
                 "dnnInfos": [
                     {
                         "dnn": "internet"
@@ -152,17 +105,6 @@
                         "dnn": "internet"
                     }
                 }
-            },
-            "01112233": {
-                "snssai": {
-                    "sst": 1,
-                    "sd": "112233"
-                },
-                "smPolicyDnnData": {
-                    "internet": {
-                        "dnn": "internet"
-                    }
-                }
             }
         }
     },
@@ -173,13 +115,6 @@
             "snssai": "01010203",
             "dnn": "internet",
             "qosRef": 1
-        },
-        {
-            "filter": "1.1.1.1/32",
-            "precedence": 127,
-            "snssai": "01112233",
-            "dnn": "internet",
-            "qosRef": 2
         }
     ],
     "QosFlows": [
@@ -192,16 +127,6 @@
             "mbrDL": "208 Mbps",
             "gbrUL": "108 Mbps",
             "gbrDL": "108 Mbps"
-        },
-        {
-            "snssai": "01112233",
-            "dnn": "internet",
-            "qosRef": 2,
-            "5qi": 7,
-            "mbrUL": "407 Mbps",
-            "mbrDL": "407 Mbps",
-            "gbrUL": "207 Mbps",
-            "gbrDL": "207 Mbps"
         }
     ],
     "ChargingDatas": [
@@ -220,23 +145,6 @@
             "filter": "1.1.1.1/32",
             "chargingMethod": "Offline",
             "quota": "100000",
-            "unitCost": "1"
-        },
-        {
-            "snssai": "01112233",
-            "dnn": "",
-            "filter": "",
-            "chargingMethod": "Online",
-            "quota": "100000",
-            "unitCost": "1"
-        },
-        {
-            "snssai": "01112233",
-            "dnn": "internet",
-            "qosRef": 2,
-            "filter": "1.1.1.1/32",
-            "chargingMethod": "Online",
-            "quota": "5000",
             "unitCost": "1"
         }
     ]

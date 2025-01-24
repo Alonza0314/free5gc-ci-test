@@ -100,7 +100,7 @@ configuration:
   nrfCertPem: cert/nrf.pem # NRF Certificate
   urrPeriod: 10 # default usage report period in seconds
   urrThreshold: 10 # default usage report threshold in bytes
-  requestedUnit: 1000
+  requestedUnit: 10
   ulcl: true
 logger: # log output setting
   enable: true # true or false
