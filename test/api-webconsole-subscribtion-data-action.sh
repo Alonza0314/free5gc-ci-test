@@ -3,9 +3,9 @@
 ##########################
 #
 # usage:
-# ./api-webconsole-subscribtion-data-action.sh <action>
+# ./api-webconsole-subscribtion-data-action.sh <action> <json_file>
 #
-# e.g. ./api-webconsole-subscribtion-data-action.sh [post|delete]
+# e.g. ./api-webconsole-subscribtion-data-action.sh [post|delete] json/webconsole-subscription-data-[offline|online].json
 #
 ##########################
 
@@ -44,13 +44,13 @@ case "$1" in
         SUBSCRIBE_RESPONSE=$(curl -s -X POST "http://webui:5000/api/subscriber/imsi-208930000000001/20893" \
         -H "Content-Type: application/json" \
         -H "Token: $TOKEN" \
-        -d @json/webconsole-subscription-data.json)
+        -d @"$2")
         ;;
     "delete")
         SUBSCRIBE_RESPONSE=$(curl -s -X DELETE "http://webui:5000/api/subscriber/imsi-208930000000001/20893" \
         -H "Content-Type: application/json" \
         -H "Token: $TOKEN" \
-        -d @json/webconsole-subscription-data.json)
+        -d @"$2")
         ;;
     *)
         echo "error: invalid parameter"

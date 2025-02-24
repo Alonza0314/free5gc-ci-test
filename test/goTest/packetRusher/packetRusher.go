@@ -1,6 +1,7 @@
 package packetrusher
 
 import (
+	"os"
 	"os/exec"
 )
 
@@ -44,8 +45,10 @@ func (pr *PacketRusher) Deactivate() {
 		return
 	}
 
-	pr.done <- true
-	close(pr.done)
+	if pr.cmd != nil && pr.cmd.Process != nil {
+		pr.cmd.Process.Signal(os.Interrupt)
+		pr.cmd.Wait()
+	}
 	pr.isActive = false
 }
 

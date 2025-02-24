@@ -1,7 +1,9 @@
 package test
 
 import (
+	"encoding/json"
 	"os/exec"
+	"strings"
 	"testing"
 	"time"
 
@@ -61,7 +63,7 @@ func TestULCLTrafficInfluence(t *testing.T) {
 	if err != nil {
 		t.Errorf("Delete ti data failed: expected delete success, but got %v, output: %s", err, output)
 	}
-	time.Sleep(500 * time.Millisecond)
+	time.Sleep(3 * time.Millisecond)
 
 	// reset TI
 	t.Run("Reset TI", func(t *testing.T) {
@@ -75,6 +77,46 @@ func TestULCLTrafficInfluence(t *testing.T) {
 		}
 	})
 
+	// check charging record
+	t.Run("Check Charging Record", func(t *testing.T) {
+		checkChargingRecord(t)
+	})
+
 	// deactivate PacketRusher
 	pr.Deactivate()
+}
+
+func checkChargingRecord(t *testing.T) {
+	cmd := exec.Command("bash", "../api-webconsole-charging-record.sh", "get", "../json/webconsole-login-data.json")
+	output, err := cmd.CombinedOutput()
+	if err != nil {
+		t.Errorf("Get charging record failed: %v, output: %s", err, output)
+		return
+	}
+
+	outputStr := string(output)
+
+	lines := strings.Split(outputStr, "\n")
+	var jsonLine string
+	for i := len(lines) - 1; i >= 0; i-- {
+		if strings.TrimSpace(lines[i]) != "" {
+			jsonLine = lines[i]
+			break
+		}
+	}
+
+	var chargingRecords []map[string]interface{}
+	if err := json.Unmarshal([]byte(jsonLine), &chargingRecords); err != nil {
+		t.Errorf("Failed to parse charging record JSON: %v\nJSON content: %s", err, jsonLine)
+		return
+	}
+
+	if len(chargingRecords) == 0 {
+		t.Error("No charging records found")
+		return
+	}
+
+	if chargingRecords[0]["TotalVol"].(float64) == 0 {
+		t.Error("Charging record is empty")
+	}
 }

@@ -14,9 +14,7 @@ ueRoutingInfo: # the list of UE routing information
       - A: I-UPF
         B: PSA-UPF
     specificPath:
-      - dest: 10.100.50.10/32 # n6gw
-        path: [I-UPF]
-      - dest: 10.100.100.10/32 # mec
+      - dest: 1.0.0.1/32
         path: [I-UPF]
 
 pfdDataForApp: # PFDs for an Application
