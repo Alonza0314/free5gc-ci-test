@@ -21,8 +21,11 @@
 3. Reset Traffic Influence
    - Ping n6gw: expected ping success
    - Ping mec: expected ping failed
-4. Check charging data record
-   - Check quota usage report data: expected quota usage report data is not 0
+4. Flow Level Ping(used to check flow level charging record)
+   - Ping 1.1.1.1: expected ping success
+5. Check charging data record
+   - Check session level charging record: expected charging record is not empty
+   - Check flow level charging record: expected charging record is not empty
 
 ## Test Steps
 
