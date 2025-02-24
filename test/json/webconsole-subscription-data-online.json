@@ -67,7 +67,7 @@
                         "downlink": "100 Mbps"
                     },
                     "5gQosProfile": {
-                        "5qi": 8,
+                        "5qi": 9,
                         "arp": {
                             "priorityLevel": 8
                         },
@@ -111,7 +111,7 @@
     "FlowRules": [
         {
             "filter": "1.1.1.1/32",
-            "precedence": 127,
+            "precedence": 128,
             "snssai": "01010203",
             "dnn": "internet",
             "qosRef": 1
@@ -122,7 +122,7 @@
             "snssai": "01010203",
             "dnn": "internet",
             "qosRef": 1,
-            "5qi": 7,
+            "5qi": 8,
             "mbrUL": "208 Mbps",
             "mbrDL": "208 Mbps",
             "gbrUL": "108 Mbps",
