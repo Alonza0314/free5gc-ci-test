@@ -21,6 +21,8 @@
 3. Reset Traffic Influence
    - Ping n6gw: expected ping success
    - Ping mec: expected ping failed
+4. Check charging data record
+   - Check quota usage report data: expected quota usage report data is not 0
 
 ## Test Steps
 
