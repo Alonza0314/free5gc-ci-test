@@ -20,9 +20,9 @@ RUN apt-get update && \
     net-tools \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Install Go 1.21.3
+# Install Go 1.21.8
 RUN rm -rf /usr/local/go && \
-    wget https://go.dev/dl/go1.21.3.linux-amd64.tar.gz -O - | tar -C /usr/local -zxvf - && \
+    wget https://go.dev/dl/go1.21.8.linux-amd64.tar.gz -O - | tar -C /usr/local -zxvf - && \
     echo "export PATH=$PATH:/usr/local/go/bin" >> /root/.profile
 
 # Clone PacketRusher and build binary only
