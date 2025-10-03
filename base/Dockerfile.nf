@@ -2,9 +2,9 @@
 # Dockerfile responsible to compile specific NF from free5gc sources on the host
 #
 
-FROM free5gc/base as my-base
+FROM free5gc/base AS my-base
 
-ENV DEBIAN_FRONTEND noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
 ARG F5GC_MODULE
 
 # Get Free5GC

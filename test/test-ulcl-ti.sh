@@ -3,16 +3,16 @@
 ##########################
 #
 # usage:
-# ./test-ulcl.sh <test-name>
+# ./test-ulcl-ti.sh <test-name>
 #
-# e.g. ./test-ulcl.sh TestULCLTrafficInfluence
+# e.g. ./test-ulcl-ti.sh TestULCLTrafficInfluence
 #
 ##########################
 
 echo "test TestULCLTrafficInfluence with offline charging"
 
 # post ue (ci-test PacketRusher) data to db
-./api-webconsole-subscribtion-data-action.sh post json/webconsole-subscription-data-offline.json
+./api-webconsole-subscribtion-data-action.sh post json/webconsole-subscription-data-ti-offline.json
 if [ $? -ne 0 ]; then
     echo "Failed to post subscription data"
     exit 1
@@ -25,7 +25,7 @@ go_test_exit_code=$?
 cd ..
 
 # delete ue (ci-test PacketRusher) data from db
-./api-webconsole-subscribtion-data-action.sh delete json/webconsole-subscription-data-offline.json
+./api-webconsole-subscribtion-data-action.sh delete json/webconsole-subscription-data-ti-offline.json
 if [ $? -ne 0 ]; then
     echo "Failed to delete subscription data"
     exit 1
@@ -34,7 +34,7 @@ fi
 echo "test TestULCLTrafficInfluence with online charging"
 
 # post ue (ci-test PacketRusher) data to db
-./api-webconsole-subscribtion-data-action.sh post json/webconsole-subscription-data-online.json
+./api-webconsole-subscribtion-data-action.sh post json/webconsole-subscription-data-ti-online.json
 if [ $? -ne 0 ]; then
     echo "Failed to post subscription data"
     exit 1
@@ -47,7 +47,7 @@ go_test_exit_code=$?
 cd ..
 
 # delete ue (ci-test PacketRusher) data from db
-./api-webconsole-subscribtion-data-action.sh delete json/webconsole-subscription-data-online.json
+./api-webconsole-subscribtion-data-action.sh delete json/webconsole-subscription-data-ti-online.json
 if [ $? -ne 0 ]; then
     echo "Failed to delete subscription data"
     exit 1

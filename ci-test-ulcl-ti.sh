@@ -3,9 +3,9 @@
 ##########################
 #
 # usage:
-# ./ci-test-ulcl.sh <test-name>
+# ./ci-test-ulcl-ti.sh <test-name>
 #
-# e.g. ./ci-test-ulcl.sh TestULCLTrafficInfluence
+# e.g. ./ci-test-ulcl-ti.sh TestULCLTrafficInfluence
 #
 ##########################
 
@@ -21,7 +21,7 @@ fi
 # run test
 echo "Running test... $1"
 
-docker exec ci /bin/bash -c "cd test && ./test-ulcl.sh $1"
+docker exec ci /bin/bash -c "cd test && ./test-ulcl-ti.sh $1"
 exit_code=$?
 
 echo "Test completed with exit code: $exit_code"

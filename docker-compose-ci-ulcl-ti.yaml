@@ -1,7 +1,7 @@
 services:
   db: # mongodb
     container_name: ci-mongodb
-    image: mongo:7.0.15
+    image: mongo:4.4
     command: mongod --port 27017 --quiet
     expose:
       - "27017"
@@ -17,7 +17,7 @@ services:
     image: free5gc/upf:latest
     command: bash -c "./upf-iptables.sh && ./upf -c ./config/upfcfg.yaml"
     volumes:
-      - ./config/ULCL/i-upfCfg.yaml:/free5gc/config/upfcfg.yaml
+      - ./config/TI/i-upfCfg.yaml:/free5gc/config/upfcfg.yaml
       - ./config/iptables/upf-iptables.sh:/free5gc/upf-iptables.sh
     cap_add:
       - NET_ADMIN
@@ -34,7 +34,7 @@ services:
     image: free5gc/upf:latest
     command: bash -c "./upf-iptables.sh && ./upf -c ./config/upfcfg.yaml"
     volumes:
-      - ./config/ULCL/psa-upfCfg.yaml:/free5gc/config/upfcfg.yaml
+      - ./config/TI/psa-upfCfg.yaml:/free5gc/config/upfcfg.yaml
       - ./config/iptables/upf-iptables.sh:/free5gc/upf-iptables.sh
     cap_add:
       - NET_ADMIN
@@ -185,8 +185,8 @@ services:
     expose:
       - "8000"
     volumes:
-      - ./config/ULCL/smfCfg.yaml:/free5gc/config/smfcfg.yaml
-      - ./config/ULCL/ueRoutingCfg.yaml:/free5gc/config/uerouting.yaml
+      - ./config/TI/smfCfg.yaml:/free5gc/config/smfcfg.yaml
+      - ./config/TI/ueRoutingCfg.yaml:/free5gc/config/uerouting.yaml
       - ./cert:/free5gc/cert
     environment:
       GIN_MODE: release
@@ -309,7 +309,7 @@ services:
         DEBUG_TOOLS: "false"
     command: tail -f /dev/null
     volumes:
-      - ./config/ci.yaml:/root/PacketRusher/config/config.yml
+      - ./config/TI/ci.yaml:/root/PacketRusher/config/config.yml
       - ./test:/root/test
     cap_add:
       - NET_ADMIN
