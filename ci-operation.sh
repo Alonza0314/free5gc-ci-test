@@ -7,7 +7,7 @@
 ##########################
 #
 # usage:
-# ./ ci-operation.sh [action]
+# ./ ci-operation.sh [action] [target]
 #
 # e.g. ./ci-operation.sh test ulcl-ti
 #
@@ -18,8 +18,8 @@ usage() {
     echo "  - pull: remove the existed free5gc repo under base/ and clone a new free5gc with its NFs"
     echo "  - fetch: fetch the target NF's PR"
     echo "  - build: build the necessary images"
-    echo "  - up <ulcl-ti>: bring up the compose"
-    echo "  - down <ulcl-ti>: shut down the compose"
+    echo "  - up <ulcl-ti | ulcl-mp>: bring up the compose"
+    echo "  - down <ulcl-ti | ulcl-mp>: shut down the compose"
     echo "  - test <ulcl-ti>: run ULCL test"
     echo "  - exec <ci>: enter the ci container"
 }
@@ -49,7 +49,10 @@ main() {
             case "$2" in
                 "ulcl-ti")
                     docker compose -f docker-compose-ulcl-ti.yaml up
-                    ;;
+                ;;
+                "ulcl-mp")
+                    docker compose -f docker-compose-ulcl-mp.yaml up
+                ;;
                 *)
                     usage
             esac
@@ -58,7 +61,10 @@ main() {
             case "$2" in
                 "ulcl-ti")
                     docker compose -f docker-compose-ulcl-ti.yaml down
-                    ;;
+                ;;
+                "ulcl-mp")
+                    docker compose -f docker-compose-ulcl-mp.yaml down
+                ;;
                 *)
                     usage
             esac
@@ -76,6 +82,12 @@ main() {
             case "$2" in
                 "ci")
                     docker exec -it ci bash
+                ;;
+                "ci-1")
+                    docker exec -it ci-1 bash
+                ;;
+                "ci-2")
+                    docker exec -it ci-2 bash
                 ;;
                 *)
                     usage

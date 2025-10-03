@@ -39,15 +39,21 @@ echo "Sending subscription request..."
 
 TOKEN=$(echo -n "$TOKEN" | tr -d '\n' | tr -d ' ')
 
+# Extract IMSI from JSON file
+IMSI=$(jq -r '.ueId' "$2" | sed 's/imsi-//')
+PLMN_ID=$(jq -r '.plmnID' "$2")
+
+echo "Using IMSI: $IMSI, PLMN ID: $PLMN_ID"
+
 case "$1" in
     "post")
-        SUBSCRIBE_RESPONSE=$(curl -s -X POST "http://webui:5000/api/subscriber/imsi-208930000000001/20893" \
+        SUBSCRIBE_RESPONSE=$(curl -s -X POST "http://webui:5000/api/subscriber/imsi-$IMSI/$PLMN_ID" \
         -H "Content-Type: application/json" \
         -H "Token: $TOKEN" \
         -d @"$2")
         ;;
     "delete")
-        SUBSCRIBE_RESPONSE=$(curl -s -X DELETE "http://webui:5000/api/subscriber/imsi-208930000000001/20893" \
+        SUBSCRIBE_RESPONSE=$(curl -s -X DELETE "http://webui:5000/api/subscriber/imsi-$IMSI/$PLMN_ID" \
         -H "Content-Type: application/json" \
         -H "Token: $TOKEN" \
         -d @"$2")
