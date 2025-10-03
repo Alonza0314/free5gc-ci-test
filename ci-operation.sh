@@ -20,8 +20,8 @@ usage() {
     echo "  - build: build the necessary images"
     echo "  - up <ulcl-ti | ulcl-mp>: bring up the compose"
     echo "  - down <ulcl-ti | ulcl-mp>: shut down the compose"
-    echo "  - test <ulcl-ti>: run ULCL test"
-    echo "  - exec <ci>: enter the ci container"
+    echo "  - test <ulcl-ti | ulcl-mp>: run ULCL test"
+    echo "  - exec <ci | ci-1 | ci-2>: enter the ci container"
 }
 
 main() {
@@ -73,6 +73,10 @@ main() {
             case "$2" in
                 "ulcl-ti")
                     docker exec ci /bin/bash -c "cd /root/test && ./test-ulcl-ti.sh TestULCLTrafficInfluence"
+                ;;
+                "ulcl-mp")
+                    docker exec ci-1 /bin/bash -c "cd /root/test && ./test-ulcl-mp.sh TestULCLMultiPathCi1"
+                    docker exec ci-2 /bin/bash -c "cd /root/test && ./test-ulcl-mp.sh TestULCLMultiPathCi2"
                 ;;
                 *)
                     usage

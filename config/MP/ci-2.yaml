@@ -1,15 +1,15 @@
 gnodeb:
   controlif:
-    ip: "10.100.200.100"
+    ip: "10.100.200.200"
     port: 9487
   dataif:
-    ip: "10.100.200.100"
+    ip: "10.100.200.200"
     port: 2152
   plmnlist:
     mcc: "208"
     mnc: "93"
     tac: "000001"
-    gnbid: "000008"
+    gnbid: "000009"
   slicesupportlist:
     sst: "01"
     sd: "112233"
