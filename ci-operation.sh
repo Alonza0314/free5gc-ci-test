@@ -40,7 +40,7 @@ main() {
             cd base/free5gc/NFs/$2
             git fetch origin pull/$3/head:pr-$3
             git checkout pr-$3
-            cd ../../../
+            cd ../../../../
         ;;
         "build")
             make ulcl
