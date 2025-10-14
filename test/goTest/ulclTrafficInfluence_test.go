@@ -52,29 +52,29 @@ func TestULCLTrafficInfluence(t *testing.T) {
 }
 
 func pingN6gwSuccessMecFailed(t *testing.T) {
-	err := pinger.Pinger(N6GW_IP, NIC)
+	err := pinger.Pinger(N6GW_IP, NIC_1)
 	if err != nil {
 		t.Errorf("Ping n6gw failed: expected ping success, but got %v", err)
 	}
-	err = pinger.Pinger(MEC_IP, NIC)
+	err = pinger.Pinger(MEC_IP, NIC_1)
 	if err == nil {
 		t.Errorf("Ping mec failed: expected ping failed, but got %v", err)
 	}
 }
 
 func pingN6gwFailedMecSuccess(t *testing.T) {
-	err := pinger.Pinger(N6GW_IP, NIC)
+	err := pinger.Pinger(N6GW_IP, NIC_1)
 	if err != nil {
 		t.Errorf("Ping n6gw failed: expected ping failed, but got %v", err)
 	}
-	err = pinger.Pinger(MEC_IP, NIC)
+	err = pinger.Pinger(MEC_IP, NIC_1)
 	if err == nil {
 		t.Errorf("Ping mec failed: expected ping sucess, but got %v", err)
 	}
 }
 
 func pingOneOneOneOne(t *testing.T) {
-	err := pinger.Pinger(ONE_IP, NIC)
+	err := pinger.Pinger(ONE_IP, NIC_1)
 	if err != nil {
 		t.Errorf("Ping one.one.one.one failed: expected ping success, but got %v", err)
 	}

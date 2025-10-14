@@ -1,7 +1,7 @@
 services:
   db: # mongodb
     container_name: mongodb
-    image: mongo:7.0.15
+    image: mongo:4.4
     command: mongod --port 27017 --quiet
     expose:
       - "27017"
@@ -12,45 +12,73 @@ services:
         aliases:
           - db
 
-  free5gc-i-upf: # i-upf
-    container_name: i-upf
-    build:
-      context: ./nf_upf
-      args:
-        DEBUG_TOOLS: "false"
+  free5gc-i-upf-1: # i-upf
+    container_name: i-upf-1
+    image: free5gc/upf:latest
     command: bash -c "./upf-iptables.sh && ./upf -c ./config/upfcfg.yaml"
     volumes:
-      - ./config/ULCL/i-upfCfg.yaml:/free5gc/config/upfcfg.yaml
+      - ./config/MP/i-upfCfg-1.yaml:/free5gc/config/upfcfg.yaml
       - ./config/iptables/upf-iptables.sh:/free5gc/upf-iptables.sh
     cap_add:
       - NET_ADMIN
     networks:
       privnet:
         aliases:
-          - i-upf.free5gc.org
+          - i-upf-1.free5gc.org
       mec-net:
         aliases:
-          - i-upf.mec.org
+          - i-upf-1.mec.org
 
-  free5gc-psa-upf: # psa-upf
-    container_name: psa-upf
-    build:
-      context: ./nf_upf
-      args:
-        DEBUG_TOOLS: "false"
+  free5gc-i-upf-2: # i-upf
+    container_name: i-upf-2
+    image: free5gc/upf:latest
     command: bash -c "./upf-iptables.sh && ./upf -c ./config/upfcfg.yaml"
     volumes:
-      - ./config/ULCL/psa-upfCfg.yaml:/free5gc/config/upfcfg.yaml
+      - ./config/MP/i-upfCfg-2.yaml:/free5gc/config/upfcfg.yaml
       - ./config/iptables/upf-iptables.sh:/free5gc/upf-iptables.sh
     cap_add:
       - NET_ADMIN
     networks:
       privnet:
         aliases:
-          - psa-upf.free5gc.org
+          - i-upf-2.free5gc.org
+      mec-net:
+        aliases:
+          - i-upf-2.mec.org
+
+  free5gc-psa-upf-1: # psa-upf
+    container_name: psa-upf-1
+    image: free5gc/upf:latest
+    command: bash -c "./upf-iptables.sh && ./upf -c ./config/upfcfg.yaml"
+    volumes:
+      - ./config/MP/psa-upfCfg-1.yaml:/free5gc/config/upfcfg.yaml
+      - ./config/iptables/upf-iptables.sh:/free5gc/upf-iptables.sh
+    cap_add:
+      - NET_ADMIN
+    networks:
+      privnet:
+        aliases:
+          - psa-upf-1.free5gc.org
       n6-net:
         aliases:
-          - psa-upf.n6.org
+          - psa-upf-1.n6.org
+
+  free5gc-psa-upf-2: # psa-upf
+    container_name: psa-upf-2
+    image: free5gc/upf:latest
+    command: bash -c "./upf-iptables.sh && ./upf -c ./config/upfcfg.yaml"
+    volumes:
+      - ./config/MP/psa-upfCfg-2.yaml:/free5gc/config/upfcfg.yaml
+      - ./config/iptables/upf-iptables.sh:/free5gc/upf-iptables.sh
+    cap_add:
+      - NET_ADMIN
+    networks:
+      privnet:
+        aliases:
+          - psa-upf-2.free5gc.org
+      n6-net:
+        aliases:
+          - psa-upf-2.n6.org
 
   free5gc-n6gw: # n6gw
     container_name: n6gw
@@ -94,10 +122,7 @@ services:
 
   free5gc-nrf: # nrf
     container_name: nrf
-    build:
-      context: ./nf_nrf
-      args:
-        DEBUG_TOOLS: "false"
+    image: free5gc/nrf:latest
     command: ./nrf -c ./config/nrfcfg.yaml
     expose:
       - "8000"
@@ -116,10 +141,7 @@ services:
 
   free5gc-amf: # amf
     container_name: amf
-    build:
-      context: ./nf_amf
-      args:
-        DEBUG_TOOLS: "false"
+    image: free5gc/amf:latest
     command: ./amf -c ./config/amfcfg.yaml
     expose:
       - "8000"
@@ -138,10 +160,7 @@ services:
 
   free5gc-ausf: # ausf
     container_name: ausf
-    build:
-      context: ./nf_ausf
-      args:
-        DEBUG_TOOLS: "false"
+    image: free5gc/ausf:latest
     command: ./ausf -c ./config/ausfcfg.yaml
     expose:
       - "8000"
@@ -159,10 +178,7 @@ services:
 
   free5gc-nssf: # nssf
     container_name: nssf
-    build:
-      context: ./nf_nssf
-      args:
-        DEBUG_TOOLS: "false"
+    image: free5gc/nssf:latest
     command: ./nssf -c ./config/nssfcfg.yaml
     expose:
       - "8000"
@@ -180,10 +196,7 @@ services:
 
   free5gc-pcf: # pcf
     container_name: pcf
-    build:
-      context: ./nf_pcf
-      args:
-        DEBUG_TOOLS: "false"
+    image: free5gc/pcf:latest
     command: ./pcf -c ./config/pcfcfg.yaml
     expose:
       - "8000"
@@ -201,16 +214,13 @@ services:
 
   free5gc-smf: # smf
     container_name: smf
-    build:
-      context: ./nf_smf
-      args:
-        DEBUG_TOOLS: "false"
+    image: free5gc/smf:latest
     command: ./smf -c ./config/smfcfg.yaml -u ./config/uerouting.yaml
     expose:
       - "8000"
     volumes:
-      - ./config/ULCL/smfCfg.yaml:/free5gc/config/smfcfg.yaml
-      - ./config/ULCL/ueRoutingCfg.yaml:/free5gc/config/uerouting.yaml
+      - ./config/MP/smfCfg.yaml:/free5gc/config/smfcfg.yaml
+      - ./config/MP/ueRoutingCfg.yaml:/free5gc/config/uerouting.yaml
       - ./cert:/free5gc/cert
     environment:
       GIN_MODE: release
@@ -220,15 +230,14 @@ services:
           - smf.free5gc.org
     depends_on:
       - free5gc-nrf
-      - free5gc-i-upf
-      - free5gc-psa-upf
+      - free5gc-i-upf-1
+      - free5gc-i-upf-2
+      - free5gc-psa-upf-1
+      - free5gc-psa-upf-2
 
   free5gc-udm: # udm
     container_name: udm
-    build:
-      context: ./nf_udm
-      args:
-        DEBUG_TOOLS: "false"
+    image: free5gc/udm:latest
     command: ./udm -c ./config/udmcfg.yaml
     expose:
       - "8000"
@@ -247,10 +256,7 @@ services:
 
   free5gc-udr: # udr
     container_name: udr
-    build:
-      context: ./nf_udr
-      args:
-        DEBUG_TOOLS: "false"
+    image: free5gc/udr:latest
     command: ./udr -c ./config/udrcfg.yaml
     expose:
       - "8000"
@@ -270,10 +276,7 @@ services:
 
   free5gc-chf: # chf
     container_name: chf
-    build:
-      context: ./nf_chf
-      args:
-        DEBUG_TOOLS: "false"
+    image: free5gc/chf:latest
     command: ./chf -c ./config/chfcfg.yaml
     expose:
       - "8000"
@@ -294,10 +297,7 @@ services:
 
   free5gc-nef: # nef
     container_name: nef
-    build:
-      context: ./nf_nef
-      args:
-        DEBUG_TOOLS: "false"
+    image: free5gc/nef:latest
     command: ./nef -c ./config/nefcfg.yaml
     expose:
       - "8000"
@@ -316,10 +316,7 @@ services:
 
   free5gc-webui: # webui
     container_name: webui
-    build:
-      context: ./webui
-      args:
-        DEBUG_TOOLS: "false"
+    image: free5gc/webui:latest
     command: ./webui -c ./config/webuicfg.yaml
     expose:
       - "2121"
@@ -340,15 +337,15 @@ services:
       - db
       - free5gc-nrf
 
-  ci-test: # packet rusher
-    container_name: ci
+  ci-test-1: # packet rusher
+    container_name: ci-1
     build:
       context: ./ci
       args:
         DEBUG_TOOLS: "false"
     command: tail -f /dev/null
     volumes:
-      - ./config/ci.yaml:/root/PacketRusher/config/config.yml
+      - ./config/MP/ci-1.yaml:/root/PacketRusher/config/config.yml
       - ./test:/root/test
     cap_add:
       - NET_ADMIN
@@ -357,12 +354,40 @@ services:
     networks:
       privnet:
         aliases:
-          - ci.free5gc.org
+          - ci-1.free5gc.org
         ipv4_address: 10.100.200.100
     depends_on:
       - free5gc-amf
-      - free5gc-i-upf
-      - free5gc-psa-upf
+      - free5gc-i-upf-1
+      - free5gc-i-upf-2
+      - free5gc-psa-upf-1
+      - free5gc-psa-upf-2
+
+  ci-test-2: # packet rusher
+    container_name: ci-2
+    build:
+      context: ./ci
+      args:
+        DEBUG_TOOLS: "false"
+    command: tail -f /dev/null
+    volumes:
+      - ./config/MP/ci-2.yaml:/root/PacketRusher/config/config.yml
+      - ./test:/root/test
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - "/dev/net/tun"
+    networks:
+      privnet:
+        aliases:
+          - ci-2.free5gc.org
+        ipv4_address: 10.100.200.200
+    depends_on:
+      - free5gc-amf
+      - free5gc-i-upf-1
+      - free5gc-i-upf-2
+      - free5gc-psa-upf-1
+      - free5gc-psa-upf-2
 
 networks:
   privnet:

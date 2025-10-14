@@ -3,7 +3,7 @@
 ## Test Command
 
 ```bash
-./ci-test-ulcl.sh TestULCLTrafficInfluence
+./ci-test-ulcl-ti.sh TestULCLTrafficInfluence
 ```
 
 ## Test File
