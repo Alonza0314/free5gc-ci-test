@@ -42,6 +42,11 @@ main() {
             git checkout pr-$3
             cd ../../../../
         ;;
+        "testAll")
+            cd base/free5gc/
+            ./test.sh All
+            cd ../../
+        ;;
         "build")
             make ulcl
         ;;
