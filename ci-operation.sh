@@ -17,7 +17,7 @@ usage() {
     echo "usage: ./ci-operation.sh [action] [target]"
     echo "  - pull: remove the existed free5gc repo under base/ and clone a new free5gc with its NFs"
     echo "  - fetch [NF] [PR#]: fetch the target NF's PR"
-    echo "  - testAll: Run all free5gc tests"
+    echo "  - testAll: run all free5gc tests"
     echo "  - build: build the necessary images"
     echo "  - up <ulcl-ti | ulcl-mp>: bring up the compose"
     echo "  - down <ulcl-ti | ulcl-mp>: shut down the compose"
