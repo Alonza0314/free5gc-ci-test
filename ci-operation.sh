@@ -17,6 +17,7 @@ usage() {
     echo "usage: ./ci-operation.sh [action] [target]"
     echo "  - pull: remove the existed free5gc repo under base/ and clone a new free5gc with its NFs"
     echo "  - fetch [NF] [PR#]: fetch the target NF's PR"
+    echo "  - testAll: run all free5gc tests"
     echo "  - build: build the necessary images"
     echo "  - up <ulcl-ti | ulcl-mp>: bring up the compose"
     echo "  - down <ulcl-ti | ulcl-mp>: shut down the compose"
@@ -41,6 +42,11 @@ main() {
             git fetch origin pull/$3/head:pr-$3
             git checkout pr-$3
             cd ../../../../
+        ;;
+        "testAll")
+            cd base/free5gc/
+            ./test.sh All
+            cd ../../
         ;;
         "build")
             make ulcl
