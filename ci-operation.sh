@@ -45,6 +45,8 @@ main() {
         ;;
         "testAll")
             cd base/free5gc/
+            make all
+            ./force_kill.sh
             ./test.sh All
             cd ../../
         ;;
