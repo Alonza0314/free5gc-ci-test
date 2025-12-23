@@ -86,7 +86,7 @@ func tiOperation(t *testing.T, operation string) {
 	if err != nil {
 		t.Errorf("TI operation failed: expected %s success, but got %v, output: %s", operation, err, output)
 	}
-	time.Sleep(5 * time.Second)
+	time.Sleep(3 * time.Second)
 }
 
 func checkChargingRecord(t *testing.T) {
