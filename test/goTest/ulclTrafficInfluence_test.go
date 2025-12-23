@@ -64,11 +64,11 @@ func pingN6gwSuccessMecFailed(t *testing.T) {
 
 func pingN6gwFailedMecSuccess(t *testing.T) {
 	err := pinger.Pinger(N6GW_IP, NIC_1)
-	if err != nil {
+	if err == nil {
 		t.Errorf("Ping n6gw failed: expected ping failed, but got %v", err)
 	}
 	err = pinger.Pinger(MEC_IP, NIC_1)
-	if err == nil {
+	if err != nil {
 		t.Errorf("Ping mec failed: expected ping sucess, but got %v", err)
 	}
 }
@@ -86,7 +86,7 @@ func tiOperation(t *testing.T, operation string) {
 	if err != nil {
 		t.Errorf("TI operation failed: expected %s success, but got %v, output: %s", operation, err, output)
 	}
-	time.Sleep(3 * time.Millisecond)
+	time.Sleep(5 * time.Second)
 }
 
 func checkChargingRecord(t *testing.T) {
